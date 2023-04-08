@@ -21,7 +21,9 @@ import { CardModule } from 'primeng/card';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelModule } from 'primeng/panel';
 import { DividerModule } from 'primeng/divider';
-
+import { TooltipModule } from 'primeng/tooltip';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,10 @@ import { DividerModule } from 'primeng/divider';
     PanelModule,
     BrowserAnimationsModule,
     DividerModule,
-    HttpClientModule
+    HttpClientModule,
+    TooltipModule,
+    SelectButtonModule,
+    DropdownModule
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]

@@ -2,45 +2,62 @@
   <p-panel header="Login" [collapsed]="false">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-	<!-- ID -->
-	<div class="p-field">
-		<span class="p-inputgroup-addon">
-			<i class="pi pi-id-card"></i>
-		</span>
-		<input type="text" id="userid" formControlName="userid" pInputText/>
-		<small class="p-error" *ngIf="submitted && loginForm.controls['userid'].errors?.['required']">
-			Username is required
-		</small>
+    <!-- <div class="p-field">
+      <p-selectButton [options]="modes" formControlName="value"></p-selectButton>
+    </div> -->
+
+    <div class="p-field">
+      <p-dropdown 
+        formControlName="mode"
+        [options]="modes"
+        placeholder="Select Mode"
+        (onChange)="onModeChange()"
+      >
+      </p-dropdown>
+
+    </div>
+
+    <p-divider></p-divider>
+
+    <!-- ID -->
+	  <div class="p-field">
+      <span class="p-inputgroup-addon" pTooltip="Enter your ID">
+        <i class="pi pi-id-card"></i>
+      </span>
+      <input type="text" id="userid" formControlName="userid" placeholder="ID" pInputText/>
+      <small class="p-error" *ngIf="submitted && loginForm.controls['userid'].errors?.['required']">
+        User ID is required
+      </small>
 		</div>
 
 		<!-- Username -->
-      <div class="p-field">
-        <span class="p-inputgroup-addon">
-			<i class="pi pi-user"></i>
-		</span>
-        <input type="text" id="username" formControlName="username" pInputText/>
+    <div class="p-field">
+      <span class="p-inputgroup-addon" pTooltip="Enter your username">
+			  <i class="pi pi-user"></i>
+		  </span>
+      <input type="text" id="username" formControlName="username" placeholder="Username" pInputText/>
         <small class="p-error" *ngIf="submitted && loginForm.controls['username'].errors?.['required']">
           Username is required
         </small>
-      </div>
+    </div>
 
 	  <!-- Authorization -->
-      <div class="p-field">
-        <span class="p-inputgroup-addon">
-			<i class="pi pi-shield"></i>
-		</span>
-		<p-password id="authkey" formControlName="authkey" [feedback]="false"/>
-        <small class="p-error" *ngIf="submitted && loginForm.controls['authkey'].errors?.['required']">
+    <div class="p-field" *ngIf="authMode">
+      <span class="p-inputgroup-addon" pTooltip="Enter your auth key">
+		  	<i class="pi pi-shield"></i>
+		  </span>
+		  <p-password id="authkey" formControlName="authkey" [feedback]="false" placeholder="Authentication Key"/>
+        <small class="p-error" *ngIf="submitted && this.loginForm.get('authkey')?.value === ''">
           Auth key is required
         </small>
-      </div>
+    </div>
 
 	  <p-divider></p-divider>
 
 	  <!-- Confirm -->
-      <div class="p-field">
-        <button type="submit" pButton [disabled]="loading" [label]="loading ? 'Loading' : 'Login'" (click)="onSubmit()"></button>
-      </div>
+    <div class="p-field">
+      <button type="submit" pButton (click)="onSubmit()"></button>
+    </div>
 
     </form>
   </p-panel>

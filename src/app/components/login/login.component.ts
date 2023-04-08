@@ -1,45 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { VndbService } from 'src/app/services/vndb.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  authMode: boolean = true;
-  submitted: boolean = false;
-  loading: boolean = false;
+export class LoginComponent {
+  loginForm = new FormGroup({
+    mode: new FormControl('', Validators.required),
+    userid: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
+    authkey: new FormControl('')
+  });
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private vndbService: VndbService,
-  ) {}
+  constructor(private vndbService: VndbService) { };
 
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group(
-      {
-        username: ['', Validators.required],
-        userid: ['', Validators.required],
-        authkey: ['',  Validators.required],
-      }
-    );
-  }
+  modes = [ 'Basic', 'Auth' ];
+
+  authMode = false;
+  submitted = false;
 
   onSubmit() {
-    console.log("In here");
     this.submitted = true;
 
-    if (this.loginForm.invalid) {
+    if (!this.loginForm.valid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
-    console.log(this.loginForm);
+    
 
-    this.loading = true;
-    this.vndbService.getAuthInfo(this.loginForm.get('authkey')?.value).subscribe({
+    const authkeyValue = this.loginForm.get('authkey')?.value;
+    if (authkeyValue == null) {
+      return;
+    }
+
+    this.vndbService.getAuthInfo(authkeyValue).subscribe({
       next: (response) => {
         console.log(response);
       },
@@ -47,5 +45,13 @@ export class LoginComponent implements OnInit {
         console.log(error);
       }
     });
+  }
+
+  onModeChange() {
+    if (this.loginForm.get('mode')?.value === 'Auth') {
+      this.authMode = true;
+    } else {
+      this.authMode = false;
+    }
   }
 }
