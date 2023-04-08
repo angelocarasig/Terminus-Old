@@ -1,0 +1,26 @@
+<!-- login.component.html -->
+
+<div class="login-container">
+	<p-panel header="Login" [collapsed]="false">
+	  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<div class="p-field">
+		  <label for="username">Username</label>
+		  <input type="text" id="username" formControlName="username" pInputText />
+		  <small class="p-error" *ngIf="submitted && loginForm.controls['username'].errors?.['required']">
+			Username is required
+		  </small>
+		</div>
+		<div class="p-field">
+		  <label for="password">Password</label>
+		  <input type="password" id="password" formControlName="password" pPassword />
+		  <small class="p-error" *ngIf="submitted && loginForm.controls['password'].errors?.['required']">
+			Password is required
+		  </small>
+		</div>
+		<div class="p-field">
+		  <button type="submit" pButton [disabled]="loading" [label]="loading ? 'Loading' : 'Login'"></button>
+		</div>
+	  </form>
+	</p-panel>
+  </div>
+  
