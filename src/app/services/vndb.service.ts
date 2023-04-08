@@ -9,7 +9,7 @@ export class VndbService {
 
   constructor(private http: HttpClient) { }
 
-  getUser()
+  getUser() {};
 
   getAuthInfo(authKey: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `token ${authKey}`);

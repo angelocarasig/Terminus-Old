@@ -1,26 +1,47 @@
-<!-- login.component.html -->
-
 <div class="login-container">
-	<p-panel header="Login" [collapsed]="false">
-	  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-		<div class="p-field">
-		  <label for="username">Username</label>
-		  <input type="text" id="username" formControlName="username" pInputText />
-		  <small class="p-error" *ngIf="submitted && loginForm.controls['username'].errors?.['required']">
+  <p-panel header="Login" [collapsed]="false">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+	<!-- ID -->
+	<div class="p-field">
+		<span class="p-inputgroup-addon">
+			<i class="pi pi-id-card"></i>
+		</span>
+		<input type="text" id="userid" formControlName="userid" pInputText/>
+		<small class="p-error" *ngIf="submitted && loginForm.controls['userid'].errors?.['required']">
 			Username is required
-		  </small>
+		</small>
 		</div>
-		<div class="p-field">
-		  <label for="password">Password</label>
-		  <input type="password" id="password" formControlName="password" pPassword />
-		  <small class="p-error" *ngIf="submitted && loginForm.controls['password'].errors?.['required']">
-			Password is required
-		  </small>
-		</div>
-		<div class="p-field">
-		  <button type="submit" pButton [disabled]="loading" [label]="loading ? 'Loading' : 'Login'"></button>
-		</div>
-	  </form>
-	</p-panel>
-  </div>
-  
+
+		<!-- Username -->
+      <div class="p-field">
+        <span class="p-inputgroup-addon">
+			<i class="pi pi-user"></i>
+		</span>
+        <input type="text" id="username" formControlName="username" pInputText/>
+        <small class="p-error" *ngIf="submitted && loginForm.controls['username'].errors?.['required']">
+          Username is required
+        </small>
+      </div>
+
+	  <!-- Authorization -->
+      <div class="p-field">
+        <span class="p-inputgroup-addon">
+			<i class="pi pi-shield"></i>
+		</span>
+		<p-password id="authkey" formControlName="authkey" [feedback]="false"/>
+        <small class="p-error" *ngIf="submitted && loginForm.controls['authkey'].errors?.['required']">
+          Auth key is required
+        </small>
+      </div>
+
+	  <p-divider></p-divider>
+
+	  <!-- Confirm -->
+      <div class="p-field">
+        <button type="submit" pButton [disabled]="loading" [label]="loading ? 'Loading' : 'Login'" (click)="onSubmit()"></button>
+      </div>
+
+    </form>
+  </p-panel>
+</div>
