@@ -70,6 +70,13 @@ export class LoginComponent implements OnInit {
     }
 
     this.errorMsg = '';
+
+    //TODO: Store the user's login details in the browser's local storage
+    //TODO: Save auth permissions in array if auth
+    //TODO: Emit the user's login details to the loginService
+    
+    console.log(this.vndbService.getVnList(this.loginForm.get('userid')?.value, 1));
+
     this.loading = false;
   }
 
