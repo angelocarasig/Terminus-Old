@@ -36,10 +36,10 @@
   
       <!-- Authorization -->
       <div class="p-field" *ngIf="authMode">
-        <span class="p-inputgroup-addon" pTooltip="Enter your auth key">
+        <span class="p-inputgroup-addon" pTooltip="Enter your api token">
           <i class="pi pi-shield"></i>
         </span>
-        <p-password id="authkey" formControlName="authkey" [feedback]="false" placeholder="Authentication Key" [class.ng-invalid]="loginForm.controls['authkey'].invalid && submitted" [class.ng-dirty]="loginForm.controls['authkey'].invalid && submitted"/>
+        <p-password id="apitoken" formControlName="apitoken" [feedback]="false" placeholder="API Token" [class.ng-invalid]="loginForm.controls['apitoken'].invalid && submitted" [class.ng-dirty]="loginForm.controls['apitoken'].invalid && submitted"/>
       </div>
   
       <p-divider></p-divider>

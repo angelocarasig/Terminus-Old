@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       mode: new FormControl(null, Validators.required),
       userid: new FormControl(null, Validators.required),
       username: new FormControl(null, Validators.required),
-      authkey: new FormControl(null),
+      apitoken: new FormControl(null),
     });
   }
 
@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
       this.verifyAuthDetails();
     }
 
+    this.errorMsg = '';
     this.loading = false;
   }
 
@@ -86,7 +87,10 @@ export class LoginComponent implements OnInit {
     // Check if any of the retrieved values are falsy
     if (!modeValue || !useridValue || !usernameValue) {
       // Set the errorMsg property of the component to "Some parameters are empty"
-      this.errorMsg = 'Some parameters are empty';
+      this.errorMsg = 'Some Parameters Are Empty';
+      if (this.isAuthMode()) {
+        this.setAuthKeyError("Some Parameters Are Empty");
+      }
       return false;
     }
 
@@ -109,7 +113,7 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         // If the login details are invalid, set an error message
         if (!this.verifyLoginDetails(response)) {
-          this.setLoginErrors();
+          this.setLoginErrors("Login Details Are Invalid");
         }
       },
       error: (error) => {
@@ -137,24 +141,24 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Verifies the user's auth key details by calling the getAuthInfo method of the VndbService.
-   * If the auth key is invalid, sets an error message.
+   * Verifies the user's api token details by calling the getAuthInfo method of the VndbService.
+   * If the api token is invalid, sets an error message.
    * @returns {void} This function does not return anything.
    */
   private verifyAuthDetails(): void {
     // Retrieve the value of the authkey form control
-    const authkeyValue = this.loginForm.get('authkey')?.value;
+    const apitokenValue = this.loginForm.get('apitoken')?.value;
 
-    // If the auth key is empty, set an error message and return early
-    if (!authkeyValue) {
-      this.setAuthKeyError();
+    // If the api token is empty, set an error message and return early
+    if (!apitokenValue) {
+      this.setAuthKeyError("API Token Is Empty");
       return;
     }
 
-    // Call the getAuthInfo method of the VndbService to verify the auth key
-    this.vndbService.getAuthInfo(authkeyValue).subscribe({
+    // Call the getAuthInfo method of the VndbService to verify the api token
+    this.vndbService.getAuthInfo(apitokenValue).subscribe({
       next: (response) => {
-        // If the auth key is valid, log a success message
+        // If the api token is valid, log a success message
         if (this.verifyAuthDetailsResponse(response)) {
           console.log('Successful!');
         } else {
@@ -162,11 +166,10 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.setAuthKeyError();
+        this.setAuthKeyError("Invalid API Token");
       },
     });
   }
-
 
   private verifyAuthDetailsResponse(response: any): boolean {
     const useridValue = this.loginForm.get('userid')?.value;
@@ -174,12 +177,7 @@ export class LoginComponent implements OnInit {
     let result = true;
     for (const key in response) {
       if (response.hasOwnProperty(key)) {
-        result = this.processAuthDetailsResponse(
-          key,
-          response[key],
-          useridValue,
-          usernameValue
-        );
+        result = this.processAuthDetailsResponse(key,response[key], useridValue, usernameValue);
         if (!result) break;
       } else {
         result = false;
@@ -211,21 +209,21 @@ export class LoginComponent implements OnInit {
     return true;
   }
 
-  private setLoginErrors(): void {
+  private setLoginErrors(errorMsg: string): void {
     this.loginForm.controls['userid'].setErrors({ invalid: true });
     this.loginForm.controls['username'].setErrors({ invalid: true });
     if (this.isAuthMode()) {
-      this.setAuthKeyError();
+      this.setAuthKeyError(errorMsg);
     }
     else {
-    this.errorMsg = 'Logins Details are Invalid';
+    this.errorMsg = errorMsg;
     }
     this.validLoginDetails = false;
   }
 
-  private setAuthKeyError(): void {
-    this.loginForm.controls['authkey'].setErrors({ invalid: true });
-    this.errorMsg = 'Authentication Key is empty';
+  private setAuthKeyError(errorMsg: string): void {
+    this.loginForm.controls['apitoken'].setErrors({ invalid: true });
+    this.errorMsg = errorMsg;
     this.loading = false;
   }
 }
