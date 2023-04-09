@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 // Library Modules
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { MenubarModule } from 'primeng/menubar';
@@ -47,7 +48,8 @@ import { DropdownModule} from 'primeng/dropdown';
     HttpClientModule,
     TooltipModule,
     SelectButtonModule,
-    DropdownModule
+    DropdownModule,
+    InputNumberModule,
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]

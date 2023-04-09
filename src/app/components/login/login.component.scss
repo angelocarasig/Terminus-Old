@@ -1,7 +1,11 @@
-.login-container {
+.login-container, .response-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.login-container {
+	box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, 0.3);
 }
 
 .p-field {
