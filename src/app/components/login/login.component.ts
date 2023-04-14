@@ -36,22 +36,19 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Toggles authmode value depending on if the currrent mode value in the formGroup is 'Auth'
+  // Toggles authMode value depending on if the currrent mode value in the formGroup is 'Auth'
   onModeChange(): void {
     this.authMode = this.loginForm.get('mode')?.value === 'Auth';
   }
 
+  // Check if the current mode is 'Auth'
   private isAuthMode(): boolean {
     return this.loginForm.get('mode')?.value === 'Auth';
   }
 
   /**
-   * Validation checks before emitting username, userid and permissions to the loginService if valid.
-   * 1. Check if the login form matches formBuilder restrictions
-   * 2. Verify in vndbService if the details are valid
-   * 3. Checks if authMode is enabled
-   * 3.5. Verifies authentication key details are valid
-   * 4. Emit results to loginService
+   * Performs validation checks and calls functions to verify user and auth details
+   * (if applicable) before attempting to retrieve the user's visual novel list.
    * @returns void
    */
   onSubmit(): void {
@@ -69,15 +66,28 @@ export class LoginComponent implements OnInit {
       this.verifyAuthDetails();
     }
 
+    this.getVisualNovelList(this.loginForm.get('userid')?.value);
+
     this.errorMsg = '';
-
-    //TODO: Store the user's login details in the browser's local storage
-    //TODO: Save auth permissions in array if auth
-    //TODO: Emit the user's login details to the loginService
-    
-    console.log(this.vndbService.getVnList(this.loginForm.get('userid')?.value, 1));
-
     this.loading = false;
+  }
+
+  /**
+   * Retrieves the user's visual novel list and logs the IDs.
+   * @param {string} userid - The user's ID.
+   * @returns {void}
+   */
+  getVisualNovelList(userid: string) {
+    try {
+      const vnIDs = this.vndbService.getUserVisualNovelList(userid);
+      if (vnIDs) {
+        console.log('Visual Novel IDs:', vnIDs);
+      } else {
+        console.log('Invalid user ID');
+      }
+    } catch (error) {
+      console.error('Error getting visual novel list:', error);
+    }
   }
 
   /**
@@ -93,11 +103,7 @@ export class LoginComponent implements OnInit {
 
     // Check if any of the retrieved values are falsy
     if (!modeValue || !useridValue || !usernameValue) {
-      // Set the errorMsg property of the component to "Some parameters are empty"
-      this.errorMsg = 'Some Parameters Are Empty';
-      if (this.isAuthMode()) {
-        this.setAuthKeyError("Some Parameters Are Empty");
-      }
+      this.setFormErrors("Some Parameters Are Empty");
       return false;
     }
 
@@ -111,16 +117,13 @@ export class LoginComponent implements OnInit {
    * @returns {void} This function does not return anything.
    */
   private verifyUser(): void {
-    // Retrieve the values of the userid and username form controls
     const useridValue = this.loginForm.get('userid')?.value;
     const usernameValue = this.loginForm.get('username')?.value;
 
-    // Call the getUser method of the VndbService to verify the user's login details
     this.vndbService.getUser(useridValue, usernameValue).subscribe({
-      next: (response) => {
-        // If the login details are invalid, set an error message
-        if (!this.verifyLoginDetails(response)) {
-          this.setLoginErrors("Login Details Are Invalid");
+      next: (isValid) => {
+        if (!isValid) {
+          this.setFormErrors("Login Details Are Invalid");
         }
       },
       error: (error) => {
@@ -129,108 +132,40 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private verifyLoginDetails(response: any): boolean {
-    const useridValue = this.loginForm.get('userid')?.value;
-    const usernameValue = this.loginForm.get('username')?.value;
-
-    for (const key in response) {
-      if (response.hasOwnProperty(key)) {
-        const user = response[key];
-        if (user == null) {
-          return false;
-        }
-        if (user.username !== usernameValue || user.id !== `u${useridValue}`) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
   /**
    * Verifies the user's api token details by calling the getAuthInfo method of the VndbService.
    * If the api token is invalid, sets an error message.
    * @returns {void} This function does not return anything.
    */
   private verifyAuthDetails(): void {
-    // Retrieve the value of the authkey form control
     const apitokenValue = this.loginForm.get('apitoken')?.value;
 
-    // If the api token is empty, set an error message and return early
     if (!apitokenValue) {
-      this.setAuthKeyError("API Token Is Empty");
+      this.setFormErrors("API Token Is Empty");
       return;
     }
 
-    // Call the getAuthInfo method of the VndbService to verify the api token
-    this.vndbService.getAuthInfo(apitokenValue).subscribe({
-      next: (response) => {
-        // If the api token is valid, log a success message
-        if (this.verifyAuthDetailsResponse(response)) {
-          console.log('Successful!');
-        } else {
-          console.log('Invalid...');
-        }
-      },
-      error: (error) => {
-        this.setAuthKeyError("Invalid API Token");
-      },
-    });
-  }
-
-  private verifyAuthDetailsResponse(response: any): boolean {
-    const useridValue = this.loginForm.get('userid')?.value;
-    const usernameValue = this.loginForm.get('username')?.value;
-    let result = true;
-    for (const key in response) {
-      if (response.hasOwnProperty(key)) {
-        result = this.processAuthDetailsResponse(key,response[key], useridValue, usernameValue);
-        if (!result) break;
-      } else {
-        result = false;
-      }
-    }
-    return result;
-  }
-
-  private processAuthDetailsResponse(key: string, value: any, userid: string, username: string): boolean {
-    switch (key) {
-      case 'permissions':
-        value.forEach((element: any) => {
-          console.log(element);
-        });
-        break;
-      case 'username':
-        if (value !== username) {
-          return false;
-        }
-        break;
-      case 'id':
-        if (value !== `u${userid}`) {
-          return false;
-        }
-        break;
-      default:
-        return false;
-    }
-    return true;
-  }
-
-  private setLoginErrors(errorMsg: string): void {
-    this.loginForm.controls['userid'].setErrors({ invalid: true });
-    this.loginForm.controls['username'].setErrors({ invalid: true });
-    if (this.isAuthMode()) {
-      this.setAuthKeyError(errorMsg);
+    if (this.vndbService.getAuthInfo(apitokenValue).length <= 0) {
+      console.log("Empty permissions!");
     }
     else {
-    this.errorMsg = errorMsg;
+      console.log("Permissions included!");
     }
-    this.validLoginDetails = false;
   }
 
-  private setAuthKeyError(errorMsg: string): void {
-    this.loginForm.controls['apitoken'].setErrors({ invalid: true });
+  /**
+   * Sets error messages for the form and its controls.
+   * @param {string} errorMsg - The error message to be displayed.
+   * @returns {void}
+   */
+  private setFormErrors(errorMsg: string): void {
     this.errorMsg = errorMsg;
-    this.loading = false;
+
+    if (this.isAuthMode()) {
+      this.loginForm.controls['apitoken'].setErrors({ invalid: true });
+    } else {
+      this.loginForm.controls['userid'].setErrors({ invalid: true });
+      this.loginForm.controls['username'].setErrors({ invalid: true });
+    }
   }
 }
