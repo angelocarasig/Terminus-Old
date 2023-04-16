@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VndbService } from '../../services/vndb/vndb.service';
+import { VNDBService } from '../../services/vndb/vndb.service';
 import { LOGIN_MODES } from 'src/app/constants';
 import { User } from 'src/app/shared/models/User';
 import { UserService } from 'src/app/services/user/user.service';
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   validUserDetails: boolean;
   errorMessage: string;
 
-  constructor(private userService: UserService, private vndbService: VndbService) {}
+  constructor(private userService: UserService, private vndbService: VNDBService) {}
 
   ngOnInit(): void {
     this.loginModes = LOGIN_MODES;
@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
 
     const userDetails = new User(
       this.userService, 
+      this.vndbService,
       this.loginMode, 
       this.uid, 
       this.username, 
@@ -61,6 +62,7 @@ export class LoginComponent implements OnInit {
       console.log("Valid!");
       this.validUserDetails = true;
       this.userService.setCurrentUser(userDetails);
+      userDetails.setUList();
   
     } catch (error) {
       console.error(error);

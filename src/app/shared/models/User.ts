@@ -1,14 +1,17 @@
 import { UserService } from "src/app/services/user/user.service";
+import { UserNovel } from "./UserNovel";
+import { VNDBService } from "src/app/services/vndb/vndb.service";
 
 export interface IUser {
 	loginMode: string;
 	uid: number;
 	username: string;
 	apiToken: string | null;
+	ulist: Array<UserNovel> | null;
 
 	verifyUser(): Promise<boolean>;
 	verifyToken(): Promise<boolean>;
-	setUser(): void;
+	setUList(): void;
 }
 
 export class User implements IUser {
@@ -16,9 +19,9 @@ export class User implements IUser {
 	uid: number;
 	username: string;
 	apiToken: string | null;
-  
+	ulist: Array<UserNovel> | null;
 	
-	constructor(private userService: UserService, loginMode: string, uid: number, username: string, apiToken?: string) {
+	constructor(private userService: UserService, private vndbService: VNDBService, loginMode: string, uid: number, username: string, apiToken?: string) {
 		this.loginMode = loginMode;
 		this.uid = uid;
 		this.username = username;
@@ -27,13 +30,13 @@ export class User implements IUser {
 
 	public async verifyUser(): Promise<boolean> {
 		return this.userService.verifyUser(this);
-	  }
+	}
 	  
 	  public async verifyToken(): Promise<boolean> {
 		return this.userService.verifyToken(this);
-	  }
-	  
-  
-	setUser(): void {
+	}
+
+	public async setUList(): Promise<void> {
+		this.ulist = await this.vndbService.getUList(this);
 	}
   }

@@ -1,48 +1,54 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { User } from 'src/app/shared/models/User';
+import { UserNovel } from 'src/app/shared/models/UserNovel';
+import { environment } from 'src/environments/environment.prod';
+import { ULIST_PROPS } from 'src/app/constants';
 
 @Injectable({
   providedIn: 'root',
 })
-export class VndbService {
-  private readonly ulistUrl = 'https://api.vndb.org/kana/ulist';
-
+export class VNDBService {
   constructor(private http: HttpClient) {}
 
-  getUserVisualNovelList(uid: string): Array<any> {
-    // Define the fields to be fetched from the API
-    const fields = "id,title,alttitle,titles,titles.lang,titles.title,titles.latin,titles.official,titles.main,aliases,olang,devstatus,released,languages,platforms,image,image.id,image.url,image.dims,image.sexual,image.violence,image.votecount,length,length_minutes,length_votes,description,rating,popularity,votecount,screenshots,screenshots.*,screenshots.thumbnail,screenshots.thumbnail_dims,screenshots.release.*,tags,tags.rating,tags.spoiler,tags.lie,tags.*";
-    const body = { user: `u${uid}`, results: 100, page: 1, fields };
+  async getUList(user: User): Promise<Array<UserNovel>> {
+    const url = `${environment.apiUrl}${environment.endpoints.ulist}`;
 
-    const vnIDs: number[] = [];
-    let more = true;
+    let userNovels: Array<UserNovel> = [];
+    let pageNumber: number = 1;
+    let more: boolean = true;
 
-    // Fetch and process visual novel list pages until there are no more pages
     while (more) {
-      try {
-        const response: any = this.fetchVisualNovelList(body);
-        if (!response) break;
-
-        // Extract visual novel IDs from the current page and add them to the vnIDs array
-        const currentPageVnIDs = response['results'].map((item: any) => item.id);
-        vnIDs.push(...currentPageVnIDs);
-        more = response['more'];
-
-        // If there are more pages, increment the page number
-        if (more) body.page += 1;
-      } catch (error) {
-        console.error(error);
-        break;
-      }
+      const { userNovels: pageUserNovels, more: hasMore } = await this._getUlistPage(user, url, pageNumber);
+      userNovels = userNovels.concat(pageUserNovels);
+      more = hasMore;
+      pageNumber++;
     }
 
-    return vnIDs;
+    console.log("User novels:");
+    console.log(userNovels);
+    return userNovels;
   }
 
-    // Private method to fetch a single page of visual novels for the given user
-    private fetchVisualNovelList(body: { user: string; results: number; page: number; fields: string }): any {
-      return this.http.post<any>(this.ulistUrl, body);
+  private async _getUlistPage(user: User, url: string, pageNumber: number): Promise<{ userNovels: Array<UserNovel>, more: boolean }> {
+    const body = { user: `u${user.uid}`, results: 100, page: pageNumber, fields: ULIST_PROPS.join(', ') };
+
+    let userNovels: Array<UserNovel> = [];
+    let more: boolean = false;
+
+    try {
+      const response: any = await this.http.post(url, body).toPromise();
+
+      more = response.more;
+      response.results.forEach((userNovel: UserNovel) => {
+        userNovels.push(userNovel);
+      });
+
+      console.log(`Completed retrieving user novels for page ${pageNumber}`);
+    } catch (error) {
+      console.error(error);
+    }
+
+    return { userNovels, more };
   }
 }
