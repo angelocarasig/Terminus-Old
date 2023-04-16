@@ -1,60 +1,78 @@
 <div class="login-container">
-  <p-card>
-    <p-panel header="Login" [collapsed]="false">
-      <form [formGroup]="loginForm">
-  
-      <!-- Mode -->
-      <div class="p-field">
-        <p-dropdown 
-          formControlName="mode"
-          placeholder="Select Mode"
-          [options]="modes"
-          [class.ng-invalid]="loginForm.controls['mode'].invalid && submitted" 
-          [class.ng-dirty]="loginForm.controls['mode'].invalid && submitted"
-          (onChange)="onModeChange()"
-        >
-        </p-dropdown>
-      </div>
-  
-      <p-divider></p-divider>
-  
-      <!-- ID -->
-      <div class="p-field">
-        <span class="p-inputgroup-addon" pTooltip="Enter your ID">
-          <i class="pi pi-id-card"></i>
-        </span>
-        <p-inputNumber id="userid" formControlName="userid" placeholder="ID" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [class.ng-invalid]="loginForm.controls['userid'].invalid && submitted" [class.ng-dirty]="loginForm.controls['userid'].invalid && submitted"/>
-      </div>
-  
-      <!-- Username -->
-      <div class="p-field">
-        <span class="p-inputgroup-addon" pTooltip="Enter your username">
-          <i class="pi pi-user"></i>
-        </span>
-        <input type="text" id="username" formControlName="username" placeholder="Username" pInputText [class.ng-invalid]="loginForm.controls['username'].invalid && submitted" [class.ng-dirty]="loginForm.controls['username'].invalid && submitted"/>
-      </div>
-  
-      <!-- Authorization -->
-      <div class="p-field" *ngIf="authMode">
-        <span class="p-inputgroup-addon" pTooltip="Enter your api token">
-          <i class="pi pi-shield"></i>
-        </span>
-        <p-password id="apitoken" formControlName="apitoken" [feedback]="false" placeholder="API Token" [class.ng-invalid]="loginForm.controls['apitoken'].invalid && submitted" [class.ng-dirty]="loginForm.controls['apitoken'].invalid && submitted"/>
-      </div>
-  
-      <p-divider></p-divider>
-  
-      <!-- Confirm -->
-      <div class="p-field response-container">
-        <p-button type="submit" (click)="onSubmit()" [loading]="loading">Login</p-button>
-        <br/>
-        <small class="p-error" *ngIf="!validLoginDetails">
-          {{ errorMsg }}
-        </small>
-      </div>
-  
-      </form>
-    </p-panel>
-  </p-card>
-  
+	<p-card>
+		<p-panel header="Login" [collapsed]="false">
+			
+			<!-- Login Mode -->
+			<div class="p-field">
+				<p-dropdown 
+					placeholder="Select Mode"
+					[(ngModel)]="loginMode"
+					[options]="loginModes"
+				>
+				</p-dropdown>
+			</div>
+
+			<p-divider/>
+
+			<!-- UserID -->
+			<div class="p-field">
+				<span class="p-inputgroup-addon" pTooltip="Your VNDB ID" tooltipPosition="top">
+					<i class="pi pi-id-card"></i>
+				</span>
+
+				<p-inputNumber
+					[(ngModel)]="uid"
+					placeholder="User ID"
+					[useGrouping]="false"
+				></p-inputNumber>
+			</div>
+
+			<!-- Username -->
+			<div class="p-field">
+				<span class="p-inputgroup-addon" pTooltip="Your VNDB Username" tooltipPosition="top">
+				  <i class="pi pi-user"></i>
+				</span>
+
+				<input 
+					pInputText 
+					[(ngModel)]="username"
+					placeholder="Username" 
+				/>
+			</div>
+
+			<!-- Authorization -->
+			<div class="p-field" *ngIf="loginMode === 'Auth'">
+				<span class="p-inputgroup-addon" pTooltip="Your VNDB API Token" tooltipPosition="top">
+				  <i class="pi pi-shield"></i>
+				</span>
+
+				<p-password 
+					[feedback]="false"
+					[(ngModel)]="apitoken"
+					placeholder="API Token"
+				/>
+			</div>
+
+			<p-divider/>
+
+			<div class="p-field response-container">
+				<button 
+					pButton 
+					type="button"
+					label="Submit"
+					class="submit-button"
+					[loading]="loading"
+					(click)="verifyLoginDetails()"
+				>
+				</button>
+				
+				<br *ngIf="!validUserDetails"/>
+				
+				<small class="p-error" *ngIf="!validUserDetails">
+					{{ errorMessage }}
+				</small>
+			</div>
+
+		</p-panel>
+	</p-card>
 </div>

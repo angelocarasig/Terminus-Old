@@ -14,17 +14,17 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 
 // Library Modules
-import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+
+import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
-import { CardModule } from 'primeng/card';
-import { MenubarModule } from 'primeng/menubar';
-import { PanelModule } from 'primeng/panel';
-import { DividerModule } from 'primeng/divider';
+import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { DropdownModule} from 'primeng/dropdown';
+
 
 @NgModule({
   declarations: [
@@ -34,22 +34,23 @@ import { DropdownModule} from 'primeng/dropdown';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ButtonModule,
-    InputTextModule,
-    PasswordModule,
-    CardModule,
-    MenubarModule,
-    PanelModule,
     BrowserAnimationsModule,
-    DividerModule,
     HttpClientModule,
-    TooltipModule,
-    SelectButtonModule,
+    AppRoutingModule,
+    
+    // PrimeNG
+    DividerModule,
+
+    CardModule,
+    PanelModule,
     DropdownModule,
+    InputTextModule,
     InputNumberModule,
+    PasswordModule,
+    ButtonModule,
+    TooltipModule
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]
