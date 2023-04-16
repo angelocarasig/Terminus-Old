@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   loginModes: Array<string>;
 
   loginMode: string;
-  uid: number;
   username: string;
   apitoken: string;
 
@@ -37,7 +36,6 @@ export class LoginComponent implements OnInit {
       this.userService, 
       this.vndbService,
       this.loginMode, 
-      this.uid, 
       this.username, 
       this.loginMode === 'Auth' ? this.apitoken : undefined
     );
@@ -49,6 +47,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = 'Invalid User ID or Username';
         return;
       }
+      else console.log(userDetails);
   
       if (this.loginMode === 'Auth') {
         const isTokenValid = await userDetails.verifyToken();
@@ -62,7 +61,7 @@ export class LoginComponent implements OnInit {
       console.log("Valid!");
       this.validUserDetails = true;
       this.userService.setCurrentUser(userDetails);
-      userDetails.setUList();
+      await userDetails.setUList();
   
     } catch (error) {
       console.error(error);

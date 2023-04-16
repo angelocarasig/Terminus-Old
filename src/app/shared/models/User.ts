@@ -21,9 +21,8 @@ export class User implements IUser {
 	apiToken: string | null;
 	ulist: Array<UserNovel> | null;
 	
-	constructor(private userService: UserService, private vndbService: VNDBService, loginMode: string, uid: number, username: string, apiToken?: string) {
+	constructor(private userService: UserService, private vndbService: VNDBService, loginMode: string, username: string, apiToken?: string) {
 		this.loginMode = loginMode;
-		this.uid = uid;
 		this.username = username;
 		this.apiToken = apiToken ?? null;
 	}

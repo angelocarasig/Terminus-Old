@@ -15,21 +15,18 @@ export class UserService {
   public async verifyUser(userToVerify: User): Promise<boolean> {
     const url = `${environment.apiUrl}${environment.endpoints.user}`;
     const params = new HttpParams()
-    .append('q', `u${userToVerify.uid}`)
     .append('q', userToVerify.username);
 
     let valid: boolean = true;
 
     try {
       const response: any = await this.http.get(url, {params}).toPromise();
+      valid = response[`${userToVerify.username}`] != null;
 
-      for (let key in response) {
-        const responseKey = response[key];
-        if (responseKey == null || responseKey.username !== userToVerify.username || responseKey.id !== `u${userToVerify.uid}`) {
-          valid = false;
-          break;
-        }
+      if (valid) {
+        userToVerify.uid = parseInt(response[`${userToVerify.username}`].id.substring(1), 10);
       }
+
     } catch (error) {
       console.error(error);
       valid = false;
