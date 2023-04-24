@@ -1,5 +1,5 @@
 # Terminus
 
-Brings an updated UI to view and manage your visual novels from VNDB.
+WIP New VNDB Profile UI
 
-WIP
+Aims to also integrate user statistics
