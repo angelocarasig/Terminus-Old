@@ -24,13 +24,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { BookshelfComponent } from './components/bookshelf/bookshelf/bookshelf.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    BookshelfComponent
   ],
   imports: [
     BrowserModule,
