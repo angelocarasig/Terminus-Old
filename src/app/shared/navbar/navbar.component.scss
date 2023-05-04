@@ -1,0 +1,17 @@
+:host {
+	::ng-deep .p-menuitem {
+		margin-left: 0.15rem;
+	} 
+
+	::ng-deep .p-button {
+		border-radius: 0.75rem;
+	}
+
+	::ng-deep .p-menubar {
+		background: #141414;
+	}
+}
+
+.logo {
+	cursor: pointer;
+}

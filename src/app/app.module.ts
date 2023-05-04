@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 
 // Library Modules
 import { DividerModule } from 'primeng/divider';
@@ -24,15 +26,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { BookshelfComponent } from './components/bookshelf/bookshelf/bookshelf.component';
-
+import { SidebarModule } from 'primeng/sidebar';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    BookshelfComponent
+    BookshelfComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,9 @@ import { BookshelfComponent } from './components/bookshelf/bookshelf/bookshelf.c
     InputNumberModule,
     PasswordModule,
     ButtonModule,
-    TooltipModule
+    TooltipModule,
+    SidebarModule,
+    MenubarModule
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]

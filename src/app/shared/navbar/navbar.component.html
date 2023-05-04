@@ -1,0 +1,11 @@
+<div class="navbar-container">
+	<p-menubar [model]="navbarItems">
+		<ng-template pTemplate="end">
+			<span class="p-input-icon-left">
+				<i class="pi pi-search"></i>
+				<input type="text" pInputText [(ngModel)]="searchQuery" placeholder="Search"/>
+			</span>
+		</ng-template>
+	</p-menubar>
+</div>
+

@@ -3,6 +3,7 @@ import { VNDBService } from '../../services/vndb/vndb.service';
 import { LOGIN_MODES } from 'src/app/constants';
 import { User } from 'src/app/shared/models/User';
 import { UserService } from 'src/app/services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   validUserDetails: boolean;
   errorMessage: string;
 
-  constructor(private userService: UserService, private vndbService: VNDBService) {}
+  constructor(private userService: UserService, private vndbService: VNDBService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginModes = LOGIN_MODES;
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
       const isUserValid = await userDetails.verifyUser();
       if (!isUserValid) {
         this.validUserDetails = false;
-        this.errorMessage = 'Invalid User ID or Username';
+        this.errorMessage = 'Invalid Username';
         return;
       }
       else console.log(userDetails);
@@ -62,11 +63,12 @@ export class LoginComponent implements OnInit {
       this.validUserDetails = true;
       this.userService.setCurrentUser(userDetails);
       await userDetails.setUList();
+      this.router.navigate(['/bookshelf']);
   
     } catch (error) {
       console.error(error);
       this.validUserDetails = false;
-      this.errorMessage = 'An error occurred during login';
+      this.errorMessage = 'An error occurred during login.';
     } finally {
       this.loading = false;
     }
