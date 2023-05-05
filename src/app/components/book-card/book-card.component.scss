@@ -1,12 +1,19 @@
 :host {
   ::ng-deep .p-card {
+    background-image: inherit;
     background-size: cover;
     background-position: center;
-    background-image: inherit;
-    border-radius: 1rem;
     border: 10.5px solid rgb(17, 17, 17);
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0, 0.86), border 0.2s cubic-bezier(0.54, 0.71, 0.43, 0.98);
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
     cursor: pointer;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0, 0.86), border 0.2s cubic-bezier(0.54, 0.71, 0.43, 0.98);
   }
 
   ::ng-deep .p-card:hover {
@@ -31,7 +38,15 @@
   }
 }
 
+.book-card {
+  width: 250px;
+  
+}
+
 .title {
   text-align: center;
   font-size: 18px;
+  white-space: nowrap; /* Prevents the text from wrapping to a new line */
+  overflow: hidden; /* Hides the text that overflows the container */
+  text-overflow: ellipsis; /* Adds the ellipsis to indicate that text is truncated */
 }
