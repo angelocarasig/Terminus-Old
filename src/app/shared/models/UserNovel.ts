@@ -2,11 +2,11 @@ export interface UserNovel {
   finished: any
   id: string
   started: any
-  vote: number
-  voted: number
+  vote: number | null
+  voted: number | null
   added: number
   lastmod: number
-  notes: string
+  notes: string | null
   vn: VN
 }
 
@@ -15,11 +15,11 @@ export interface VN {
   length: number
   description: string
   released: string
-  alttitle: string
+  alttitle: string | null
   devstatus: number
   length_votes: number
   votecount: number
-  length_minutes: number
+  length_minutes: number | null
   titles: Title[]
   olang: string
   platforms: string[]

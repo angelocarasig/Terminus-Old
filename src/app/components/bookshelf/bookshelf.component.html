@@ -1,9 +1,10 @@
 <app-navbar></app-navbar>
 
-<div class="bookshelf">
-  <p-card *ngFor="let item of items" [ngStyle]="{'background-image': 'url(' + item.vn.image.url + ')'}">
-    <div class="item-content">
-      <h2>Item {{ item.id }}</h2>
+<div class="library">
+  <div class="bookshelf">
+    <div *ngFor="let novel of userNovels">
+      <app-book-card [novel]="novel"></app-book-card>
     </div>
-  </p-card>
+  </div>
+
 </div>

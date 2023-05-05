@@ -8,7 +8,9 @@
 	}
 
 	::ng-deep .p-menubar {
-		background: #141414;
+		background: #000;
+		border-left: 0;
+		border-right: 0;
 	}
 }
 

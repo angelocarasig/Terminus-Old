@@ -1,0 +1,37 @@
+:host {
+  ::ng-deep .p-card {
+    background-size: cover;
+    background-position: center;
+    background-image: inherit;
+    border-radius: 1rem;
+    border: 10.5px solid rgb(17, 17, 17);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0, 0.86), border 0.2s cubic-bezier(0.54, 0.71, 0.43, 0.98);
+    cursor: pointer;
+  }
+
+  ::ng-deep .p-card:hover {
+    border: 10px solid rgb(146, 152, 216);
+    transform: scale(1.015);
+  }
+
+  ::ng-deep .p-card .p-card-body {
+    padding: 0;
+  }
+
+  ::ng-deep .p-card .p-card-content {
+    padding: 0;
+  }
+
+  ::ng-deep .p-card .p-card-footer {
+    padding: 0;
+  }
+
+  ::ng-deep p-image {
+    object-fit: cover;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 18px;
+}
