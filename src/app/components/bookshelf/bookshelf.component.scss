@@ -1,9 +1,14 @@
+.library-container {
+  position: absolute;
+  top: 65px; // Comes from height of navbar being 65px;
+  height: 92.5vh; // Max mobile compatibility
+  overflow-y: scroll;
+}
+
 .library {
-  margin-top: 1rem;
   border: 1px solid rgb(54, 57, 89);
   background: #000000;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+  margin: 1rem 1.5rem;
 }
 
 .bookshelf {

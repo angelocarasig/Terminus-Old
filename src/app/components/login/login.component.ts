@@ -58,6 +58,11 @@ export class LoginComponent implements OnInit {
           return;
         }
       }
+      else if (this.loginMode !== "Basic") {
+        this.validUserDetails = false;
+        this.errorMessage = 'Please Select A Login Mode';
+        return;
+      }
   
       console.log("Valid!");
       this.validUserDetails = true;

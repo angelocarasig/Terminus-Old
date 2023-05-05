@@ -1,19 +1,28 @@
 :host {
-	::ng-deep .p-menuitem {
-		margin-left: 0.15rem;
-	} 
+  ::ng-deep .p-menuitem {
+    margin-left: 0.15rem;
+  }
 
-	::ng-deep .p-button {
-		border-radius: 0.75rem;
-	}
+  ::ng-deep .p-button {
+    border-radius: 0.75rem;
+  }
 
-	::ng-deep .p-menubar {
-		background: #000;
-		border-left: 0;
-		border-right: 0;
-	}
+  ::ng-deep .p-menubar {
+    background: #000;
+    border-left: 0;
+    border-right: 0;
+  }
 }
 
 .logo {
-	cursor: pointer;
+  cursor: pointer;
+}
+
+.navbar-container {
+  position: absolute;
+  width: 100%;
+  height: 65px;
+
+  top: 0;
+  z-index: 100;
 }

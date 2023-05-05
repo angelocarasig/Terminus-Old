@@ -30,7 +30,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SidebarModule } from 'primeng/sidebar';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
-import { AnimateModule } from 'primeng/animate';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @NgModule({
   declarations: [
@@ -63,7 +63,7 @@ import { AnimateModule } from 'primeng/animate';
     SidebarModule,
     MenubarModule,
     ImageModule,
-    AnimateModule
+    ScrollPanelModule
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]
