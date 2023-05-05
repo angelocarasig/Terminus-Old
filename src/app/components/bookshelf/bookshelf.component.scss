@@ -1,7 +1,15 @@
 .bookshelf {
-	display: block;
-	width: 100vw;
-	height: 100vh;
-	background-color: red;
-	overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1rem;
+}
+
+p-card {
+  background-size: cover;
+  background-position: center;
+  padding: 1rem;
+}
+
+.item-content {
+  /* Add any styling for the content within each item */
 }

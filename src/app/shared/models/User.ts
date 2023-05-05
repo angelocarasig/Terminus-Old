@@ -20,7 +20,7 @@ export class User implements IUser {
 	username: string;
 	apiToken: string | null;
 	ulist: Array<UserNovel> | null;
-	
+
 	constructor(private userService: UserService, private vndbService: VNDBService, loginMode: string, username: string, apiToken?: string) {
 		this.loginMode = loginMode;
 		this.username = username;
@@ -30,7 +30,7 @@ export class User implements IUser {
 	public async verifyUser(): Promise<boolean> {
 		return this.userService.verifyUser(this);
 	}
-	  
+
 	  public async verifyToken(): Promise<boolean> {
 		return this.userService.verifyToken(this);
 	}

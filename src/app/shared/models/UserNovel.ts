@@ -1,33 +1,62 @@
-import { UserNovelLabel } from "./UserNovelLabel";
-import { VisualNovel } from "./VisualNovel";
-import { VisualNovelRelease } from "./VisualNovelRelease";
-
-export interface IUserNovel {
-	id: string;
-	added: number; // UNIX Timestamp
-	voted: number | null; // UNIX Timestamp
-	lastmod: number | null; // UNIX Timestamp
-	vote: number | null;
-	started: string | null; // YYYY-MM-DD Format
-	finished: string | null; // YYYY-MM-DD Format
-	notes: string | null;
-	labels: Array<UserNovelLabel>;
-	releases: Array<VisualNovelRelease>;
-
-	vn: VisualNovel;
+export interface UserNovel {
+  finished: any
+  id: string
+  started: any
+  vote: number
+  voted: number
+  added: number
+  lastmod: number
+  notes: string
+  vn: VN
 }
 
-export class UserNovel implements IUserNovel {
-	id: string;
-	added: number;
-	voted: number | null;
-	lastmod: number | null;
-	vote: number | null;
-	started: string | null;
-	finished: string | null;
-	notes: string | null;
-	labels: Array<UserNovelLabel>;
-	releases: Array<VisualNovelRelease>;
+export interface VN {
+  image: Image
+  length: number
+  description: string
+  released: string
+  alttitle: string
+  devstatus: number
+  length_votes: number
+  votecount: number
+  length_minutes: number
+  titles: Title[]
+  olang: string
+  platforms: string[]
+  aliases: string[]
+  tags: Tag[]
+  languages: string[]
+  title: string
+  screenshots: Screenshot[]
+  rating: number
+  popularity: number
+}
 
-	vn: VisualNovel;
-  }
+export interface Image {
+  dims: number[]
+  votecount: number
+  url: string
+  id: string
+  sexual: number
+  violence: number
+}
+
+export interface Title {
+  lang: string
+  title: string
+  main: boolean
+  latin?: string | null
+  official: boolean
+}
+
+export interface Tag {
+  spoiler: number
+  id: string
+  lie: boolean
+  rating: number
+}
+
+export interface Screenshot {
+  thumbnail: string
+  thumbnail_dims: number[]
+}

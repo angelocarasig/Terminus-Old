@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SAMPLE_NOVEL } from 'src/app/constants';
+import { UserNovel } from 'src/app/shared/models/UserNovel';
 
 @Component({
   selector: 'app-bookshelf',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./bookshelf.component.scss']
 })
 export class BookshelfComponent {
-
+  items = new Array<UserNovel>(SAMPLE_NOVEL);
 }
