@@ -38,4 +38,4 @@ export class User implements IUser {
 	public async setUList(): Promise<void> {
 		this.ulist = await this.vndbService.getUList(this);
 	}
-  }
+}

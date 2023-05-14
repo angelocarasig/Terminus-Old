@@ -11,7 +11,12 @@ import { USER_PERMISSIONS } from 'src/app/constants';
 export class UserService {
   private currentUser$ = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+
+    // Tries to get from local storage (usually on page refresh)
+    const userFromLocal = localStorage.getItem('user');
+    this.currentUser$.next(userFromLocal != null ? JSON.parse(userFromLocal) : null);
+  }
 
   public async verifyUser(userToVerify: User): Promise<boolean> {
     const url = `${environment.apiUrl}${environment.endpoints.user}`;
@@ -80,8 +85,24 @@ export class UserService {
     return valid;
   }
 
+  // Since it keeps track of what login params are also used, no need to also save authkey
+  private serializeReplacer(key: any, value: any): any {
+    switch(key) {
+      case "userService":
+      case "vndbService":
+        return undefined;
+      default:
+        return value;
+    }
+  }
+
+  public saveUserToLocal(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user, this.serializeReplacer));
+  }
+
   public setCurrentUser(user: User): void {
     this.currentUser$.next(user);
+    this.saveUserToLocal(user);
   }
 
   public getCurrentUser$() {

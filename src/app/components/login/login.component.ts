@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
     this.loading = true;
 
     const userDetails = new User(
-      this.userService, 
+      this.userService,
       this.vndbService,
-      this.loginMode, 
-      this.username, 
+      this.loginMode,
+      this.username,
       this.loginMode === 'Auth' ? this.apitoken : undefined
     );
 
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         return;
       }
       else console.log(userDetails);
-  
+
       if (this.loginMode === 'Auth') {
         const isTokenValid = await userDetails.verifyToken();
         if (!isTokenValid) {
@@ -63,13 +63,13 @@ export class LoginComponent implements OnInit {
         this.errorMessage = 'Please Select A Login Mode';
         return;
       }
-  
+
       console.log("Valid!");
       this.validUserDetails = true;
-      this.userService.setCurrentUser(userDetails);
       await userDetails.setUList();
+      this.userService.setCurrentUser(userDetails);
       this.router.navigate(['/bookshelf']);
-  
+
     } catch (error) {
       console.error(error);
       this.validUserDetails = false;

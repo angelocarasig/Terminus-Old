@@ -48,7 +48,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    
+
     // PrimeNG
     DividerModule,
 
