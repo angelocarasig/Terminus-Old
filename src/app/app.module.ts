@@ -31,6 +31,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     SidebarModule,
     MenubarModule,
     ImageModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    TabMenuModule
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]

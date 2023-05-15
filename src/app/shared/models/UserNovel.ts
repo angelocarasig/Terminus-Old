@@ -8,6 +8,12 @@ export interface UserNovel {
   lastmod: number
   notes: string | null
   vn: VN
+  labels: Label[]
+}
+
+export interface Label {
+  id: number
+  label: string
 }
 
 export interface VN {

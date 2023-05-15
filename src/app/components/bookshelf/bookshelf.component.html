@@ -1,8 +1,10 @@
 <app-navbar></app-navbar>
 
+
 <div class="library-container">
+<p-tabMenu [scrollable]="true" [model]="novelTabs" [activeItem]="activeTab" (activeItemChange)="onTabChange($event)"></p-tabMenu>
   <div class="library">
-    <div class="bookshelf grid">
+    <div class="bookshelf">
       <div *ngFor="let novel of userNovels">
         <app-book-card [novel]="novel"></app-book-card>
       </div>
