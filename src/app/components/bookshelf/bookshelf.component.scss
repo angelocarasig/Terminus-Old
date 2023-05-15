@@ -1,7 +1,7 @@
 .library-container {
   position: absolute;
   top: 65px; // Comes from height of navbar being 65px;
-  height: 92.5vh; // Max mobile compatibility
+  height: 92.5vh; // Max mobile compatibility (DO NOT CHANGE)
   overflow-y: scroll;
 }
 
@@ -16,6 +16,6 @@
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 15px;
   margin: 10px;
 }

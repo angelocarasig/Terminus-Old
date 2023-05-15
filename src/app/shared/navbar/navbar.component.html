@@ -1,10 +1,16 @@
 <div class="navbar-container">
 	<p-menubar [model]="navbarItems">
 		<ng-template pTemplate="end">
-			<span class="p-input-icon-left">
-				<i class="pi pi-search"></i>
-				<input type="text" pInputText [(ngModel)]="searchQuery" placeholder="Search"/>
-			</span>
+      <div class="right-items">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText [(ngModel)]="searchQuery" placeholder="Search"/>
+        </span>
+
+        <p-button icon="pi pi-list"></p-button>
+        <p-button icon="pi pi-info-circle"></p-button>
+        <p-button icon="pi pi-github"></p-button>
+      </div>
 		</ng-template>
 	</p-menubar>
 </div>

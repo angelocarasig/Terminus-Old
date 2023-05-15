@@ -12,4 +12,8 @@ export class BookCardComponent {
   getBackgroundUrl(novel: UserNovel): string {
     return `url(${novel.vn.image.url})`;
   }
+
+  onClick(): void {
+    console.log(this.novel);
+  }
 }

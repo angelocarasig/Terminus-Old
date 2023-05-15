@@ -20,25 +20,15 @@ export class NavbarComponent implements OnInit {
         routerLink: '/'
       },
       {
-        label: 'Profile',
-        icon: 'pi pi-user',
+        label: 'Statistics',
+        icon: 'pi pi-chart-bar',
         routerLink: '/'
       },
       {
-        label: 'Placeholder A',
-        icon: 'pi pi-home',
+        label: 'Settings',
+        icon: 'pi pi-cog',
         routerLink: '/'
-      },
-      {
-        label: 'Placeholder B',
-        icon: 'pi pi-home',
-        routerLink: '/'
-      },
-      {
-        label: 'Placeholder C',
-        icon: 'pi pi-home',
-        routerLink: '/'
-      },
+      }
     ]
 
   }

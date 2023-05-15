@@ -3,7 +3,7 @@
     background-image: inherit;
     background-size: cover;
     background-position: center;
-    border: 5.5px solid rgb(17, 17, 17);
+    border: 2px solid rgb(67, 88, 132);
     border-radius: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
@@ -32,21 +32,23 @@
   ::ng-deep .p-card .p-card-footer {
     padding: 0;
   }
-
-  ::ng-deep p-image {
-    object-fit: contain;
-  }
 }
 
 .book-card {
   width: 200px;
-
 }
 
 .title {
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   white-space: nowrap; /* Prevents the text from wrapping to a new line */
   overflow: hidden; /* Hides the text that overflows the container */
   text-overflow: ellipsis; /* Adds the ellipsis to indicate that text is truncated */
+  padding: 5px;
+}
+
+.vn-cover {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
 }

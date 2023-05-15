@@ -1,6 +1,6 @@
-<div class="book-card transition-transform scale-in animation-duration-100 hover:scale-in">
+<div class="book-card transition-transform scale-in animation-duration-100 hover:scale-in" (click)="onClick()">
   <p-card>
-    <p-image [src]="novel.vn.image.url" width="200px" height="300px"> </p-image>
+    <img class="vn-cover" [src]="novel.vn.image.url">
     <div class="title">
       {{ novel.vn.title }}
     </div>
