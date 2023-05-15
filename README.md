@@ -2,7 +2,24 @@
 
 WIP New VNDB Profile UI
 
-Aims to also integrate user statistics
+Inspiration:
+- ~~I don't like using VNDB to manage my list~~
+- Trying [HTTPS-Based VNDB API](https://vndb.org/d11)
+- [VNDBStat](https://vnstat.net/)
+- Angular practice
+
+Roadmap:
+- Novel component to actually show VN details
+- Ability to update novels in-app
+- Transition/Animations on component load/close
+- User statistics (Chart.js)
+- Build and implement [erogamescape](http://erogamescape.dyndns.org/~ap2/ero/toukei_kaiseki/) wrapper for comparison (most likely a Python web-scraper)
+
+Settings Roadmap:
+- Different Display Options
+- R18 Toggle (Should include both cover art and game screenshots)
+- Main Language Conversion
+
 
 <details>
 <summary>UI Concepts</summary>
