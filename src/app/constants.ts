@@ -1,3 +1,5 @@
+import { UserNovel } from "./shared/models/UserNovel";
+
 export const LOGIN_MODES: Array<string> = ['Basic', 'Auth'];
 
 export const USER_PERMISSIONS: Array<string> = ['listread', 'listwrite'];
@@ -69,3 +71,11 @@ export class NovelStatus {
   static readonly OnHold = 'On Hold';
   static readonly Wishlist = 'Wishlist';
 }
+
+// Reflective of vndb kana api
+export const TabFilterMap = {
+  [NovelStatus.Completed]: 2,
+  [NovelStatus.Playing]: 1,
+  [NovelStatus.OnHold]: 3,
+  [NovelStatus.Wishlist]: 5,
+};

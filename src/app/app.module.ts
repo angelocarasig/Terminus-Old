@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
+import { SettingsComponent } from './shared/settings/settings.component';
 
 // Library Modules
 import { DividerModule } from 'primeng/divider';
@@ -40,7 +41,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
     HomeComponent,
     BookshelfComponent,
     NavbarComponent,
-    BookCardComponent
+    BookCardComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

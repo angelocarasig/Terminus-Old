@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { SettingsService } from 'src/app/services/settings/settings.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,12 +8,14 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  searchQuery: string = '';
-  navbarItems: MenuItem[] = [];
+  searchQuery: string;
+  navbarItems: MenuItem[];
 
-  constructor() { };
+  constructor(private settingsService: SettingsService) { };
 
   ngOnInit(): void {
+    this.searchQuery = '';
+
     this.navbarItems = [
       {
         label: 'Home',
@@ -27,9 +30,13 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Settings',
         icon: 'pi pi-cog',
-        routerLink: '/'
+        command: () => this.openSettings()
       }
     ]
+  }
 
+  openSettings(): any {
+    console.log("Toggled settings.");
+    this.settingsService.setRenderComponent(true);
   }
 }
