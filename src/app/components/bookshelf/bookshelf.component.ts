@@ -3,7 +3,6 @@ import { Route, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { NovelStatus } from 'src/app/constants';
-import { SettingsService } from 'src/app/services/settings/settings.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/shared/models/User';
 import { UserNovel } from 'src/app/shared/models/UserNovel';
@@ -29,7 +28,7 @@ export class BookshelfComponent implements OnInit {
 
   displaySettings$: Observable<boolean>;
 
-  constructor(private userService: UserService, private settingsService: SettingsService, private router: Router) {};
+  constructor(private userService: UserService, private router: Router) {};
 
   ngOnInit(): void {
     this.userService.getCurrentUser$().subscribe(user => {
@@ -42,8 +41,6 @@ export class BookshelfComponent implements OnInit {
     }
 
     this.activeTab = this.novelTabs[0];
-
-    this.displaySettings$ = this.settingsService.shouldRenderComponent();
   }
 
   onTabChange(event: any): void {

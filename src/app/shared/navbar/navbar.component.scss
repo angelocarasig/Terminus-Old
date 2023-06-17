@@ -25,6 +25,47 @@
     font-size: 14px;
   }
 
+  ::ng-deep .p-dialog {
+    border-radius: 1rem !important;
+  }
+
+  ::ng-deep .p-dialog .p-dialog-header {
+    border-top-right-radius: 1rem !important;
+    border-top-left-radius: 1rem !important;
+    padding-bottom: 0;
+    justify-content: space-between;
+  }
+
+  ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+    margin-left: auto;
+  }
+
+  ::ng-deep .p-dialog .p-dialog-header-icons {
+    margin-left: auto;
+  }
+
+  ::ng-deep .p-dialog-content {
+    overflow: hidden;
+  }
+
+  ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+    background-color: transparent;
+    padding: 1rem 2rem;
+  }
+
+  ::ng-deep .p-tabmenu .p-tabmenu-nav-btn.p-link {
+    background: rgba(17, 17, 17, 0.5);
+  }
+
+  ::ng-deep .p-tabmenu .p-tabmenu-nav-btn .p-link {
+    background-color: transparent;
+  }
+
+  ::ng-deep .p-tabmenu .p-tabmenu-nav {
+    justify-content: center;
+    width: 50vw;
+  }
+
   @media screen and (max-width: 960px) {
     ::ng-deep .p-inputtext {
       width: auto;
@@ -58,4 +99,12 @@
   gap: 10px;
   align-items: center;
   padding-right: 25px;
+}
+
+.settings-container {
+  display: flex;
+}
+
+.setting-tab {
+  margin-left: 2rem;
 }
