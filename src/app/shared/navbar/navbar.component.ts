@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { SettingsService } from 'src/app/services/settings/settings.service';
+
+import { SettingOption } from '../models/Settings';
 
 @Component({
   selector: 'app-navbar',
@@ -11,10 +12,16 @@ export class NavbarComponent implements OnInit {
   searchQuery: string;
   navbarItems: MenuItem[];
 
-  constructor(private settingsService: SettingsService) { };
+  displaySettings: boolean;
+
+  activeTab: MenuItem;
+  settingTabs: MenuItem[];
+
+  constructor() { };
 
   ngOnInit(): void {
     this.searchQuery = '';
+    this.displaySettings = false;
 
     this.navbarItems = [
       {
@@ -25,18 +32,47 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Statistics',
         icon: 'pi pi-chart-bar',
-        routerLink: '/'
+        // routerLink: '/'
+        command: () => {console.error("NOT IMPLEMENTED YET: 'Statistics'")}
       },
       {
         label: 'Settings',
         icon: 'pi pi-cog',
-        command: () => this.openSettings()
+        command: () => this.toggleSettings()
       }
     ]
+
+    this.settingTabs = [
+      { label: SettingOption.General, icon: 'pi pi-fw pi-globe', command: () => this.onTabChange(this.settingTabs[0]) },
+      { label: SettingOption.Novel, icon: 'pi pi-fw pi-book', command: () => this.onTabChange(this.settingTabs[1]) },
+      { label: SettingOption.User, icon: 'pi pi-fw pi-user', command: () => this.onTabChange(this.settingTabs[2]) },
+    ]
+
+    this.activeTab = this.settingTabs[0];
   }
 
-  openSettings(): any {
-    console.log("Toggled settings.");
-    this.settingsService.setRenderComponent(true);
+  toggleSettings(): void {
+    this.displaySettings = !this.displaySettings;
+    console.log(`Settings toggled ${this.displaySettings ? "On" : "Off"}`);
+  }
+
+  goToUrl(url: string): void {
+    window.open(url, "_blank");
+  }
+
+  goToChangelog(): void {
+    console.error("NOT IMPLEMENTED YET: 'Changelog'")
+  }
+
+  goToAbout(): void {
+    console.error("NOT IMPLEMENTED YET: 'About'")
+  }
+
+  getActiveTab(): string {
+    return this.activeTab.label != null ? `${this.activeTab.label} Settings` : 'Unknown';
+  }
+
+  onTabChange(newActiveTab: MenuItem): void {
+    this.activeTab = newActiveTab;
   }
 }

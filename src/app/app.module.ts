@@ -15,7 +15,6 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
-import { SettingsComponent } from './shared/settings/settings.component';
 
 // Library Modules
 import { DividerModule } from 'primeng/divider';
@@ -33,6 +32,8 @@ import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { DialogModule } from 'primeng/dialog';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,6 @@ import { TabMenuModule } from 'primeng/tabmenu';
     BookshelfComponent,
     NavbarComponent,
     BookCardComponent,
-    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +67,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
     MenubarModule,
     ImageModule,
     ScrollPanelModule,
-    TabMenuModule
+    TabMenuModule,
+    DialogModule,
+    MenuModule,
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]

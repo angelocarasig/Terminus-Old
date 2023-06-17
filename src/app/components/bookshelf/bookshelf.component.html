@@ -1,7 +1,6 @@
 <app-navbar></app-navbar>
 
 <div class="library-container">
-<app-settings *ngIf="displaySettings$ | async"></app-settings>
 <p-tabMenu [scrollable]="true" [model]="novelTabs" [activeItem]="activeTab" (activeItemChange)="onTabChange($event)"></p-tabMenu>
   <div class="library">
     <div class="bookshelf">
