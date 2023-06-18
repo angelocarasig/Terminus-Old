@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
-import { SettingOption } from '../models/Settings';
+import { ImageSensitivity, SettingOption, Settings } from '../models/Settings';
+import { SettingsService } from 'src/app/services/settings/settings.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,29 +18,20 @@ export class NavbarComponent implements OnInit {
   activeTab: MenuItem;
   settingTabs: MenuItem[];
 
-  constructor() { };
+  settings: Settings;
+  ImageSensitivityOptions: ImageSensitivity[];
+  selectedImageSensitivity: ImageSensitivity;
+
+  constructor(private settingsService: SettingsService) { };
 
   ngOnInit(): void {
     this.searchQuery = '';
     this.displaySettings = false;
 
     this.navbarItems = [
-      {
-        label: 'Home',
-        icon: 'pi pi-home',
-        routerLink: '/'
-      },
-      {
-        label: 'Statistics',
-        icon: 'pi pi-chart-bar',
-        // routerLink: '/'
-        command: () => {console.error("NOT IMPLEMENTED YET: 'Statistics'")}
-      },
-      {
-        label: 'Settings',
-        icon: 'pi pi-cog',
-        command: () => this.toggleSettings()
-      }
+      { label: 'Home', icon: 'pi pi-home', routerLink: '/' },
+      { label: 'Statistics', icon: 'pi pi-chart-bar', command: () => {console.error("NOT IMPLEMENTED YET: 'Statistics'")} },
+      { label: 'Settings', icon: 'pi pi-cog', command: () => this.toggleSettings() }
     ]
 
     this.settingTabs = [
@@ -48,12 +40,23 @@ export class NavbarComponent implements OnInit {
       { label: SettingOption.User, icon: 'pi pi-fw pi-user', command: () => this.onTabChange(this.settingTabs[2]) },
     ]
 
+    this.ImageSensitivityOptions = [
+      { label: "Safe", value: ImageSensitivity.Safe },
+      { label: "Questionable", value: ImageSensitivity.Questionable },
+      { label: "Explicit", value: ImageSensitivity.Explicit }
+    ]
+
     this.activeTab = this.settingTabs[0];
+
+    this.settingsService.getOptions().subscribe(settings => {
+      this.settings = settings;
+    });
+
+    this.selectedImageSensitivity = this.settings.imageSensitivity;
   }
 
   toggleSettings(): void {
     this.displaySettings = !this.displaySettings;
-    console.log(`Settings toggled ${this.displaySettings ? "On" : "Off"}`);
   }
 
   goToUrl(url: string): void {
@@ -72,7 +75,23 @@ export class NavbarComponent implements OnInit {
     return this.activeTab.label != null ? `${this.activeTab.label} Settings` : 'Unknown';
   }
 
-  onTabChange(newActiveTab: MenuItem): void {
+  onTabChange(newActiveTab: any): void {
     this.activeTab = newActiveTab;
+  }
+
+  getImageSensitivityLabel(): string {
+    switch(this.selectedImageSensitivity) {
+      case ImageSensitivity.Safe:
+        return "Safe";
+      case ImageSensitivity.Questionable:
+        return "Questionable";
+      case ImageSensitivity.Explicit:
+        return "Explicit";
+    }
+    return "Unknown";
+  }
+
+  onImageSensitivityChange(): void {
+    this.settingsService.toggleImageSensitivity(this.selectedImageSensitivity);
   }
 }

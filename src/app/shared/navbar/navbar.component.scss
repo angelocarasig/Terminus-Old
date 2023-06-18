@@ -32,7 +32,7 @@
   ::ng-deep .p-dialog .p-dialog-header {
     border-top-right-radius: 1rem !important;
     border-top-left-radius: 1rem !important;
-    padding-bottom: 0;
+    padding-bottom: 1rem !important;
     justify-content: space-between;
   }
 
@@ -44,11 +44,12 @@
     margin-left: auto;
   }
 
-  ::ng-deep .p-dialog-content {
-    overflow: hidden;
+  ::ng-deep .p-tabmenu {
+    width: 100% !important;
   }
 
   ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+    justify-content: left !important;
     background-color: transparent;
     padding: 1rem 2rem;
   }
@@ -62,8 +63,14 @@
   }
 
   ::ng-deep .p-tabmenu .p-tabmenu-nav {
-    justify-content: center;
+    justify-content: left;
     width: 50vw;
+  }
+
+  ::ng-deep .panel {
+      width: 50vw;
+      display: flex;
+      flex-direction: column;
   }
 
   @media screen and (max-width: 960px) {
@@ -102,9 +109,20 @@
 }
 
 .settings-container {
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .setting-tab {
-  margin-left: 2rem;
+  margin-left: 1rem;
+}
+
+.panel-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: auto;
 }

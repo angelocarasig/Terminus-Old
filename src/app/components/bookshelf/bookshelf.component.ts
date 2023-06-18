@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { NovelStatus } from 'src/app/constants';
+import { SettingsService } from 'src/app/services/settings/settings.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/shared/models/User';
 import { UserNovel } from 'src/app/shared/models/UserNovel';
-import { Label } from 'src/app/shared/models/UserNovel';
 
 @Component({
   selector: 'app-bookshelf',
@@ -26,9 +25,7 @@ export class BookshelfComponent implements OnInit {
 
   activeTab: MenuItem;
 
-  displaySettings$: Observable<boolean>;
-
-  constructor(private userService: UserService, private router: Router) {};
+  constructor(private userService: UserService, private settingsService: SettingsService, private router: Router) {};
 
   ngOnInit(): void {
     this.userService.getCurrentUser$().subscribe(user => {
