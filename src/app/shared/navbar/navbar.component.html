@@ -19,10 +19,10 @@
 </div>
 
 <ng-template #settings>
-  <p-dialog [modal]="true" [header]="getActiveTab()" [position]="'top'" [(visible)]="displaySettings" [style]="{width: '50vw'}" [dismissableMask]="true" [draggable]="false">
+  <p-dialog [modal]="true" [header]="getActiveTab()" [breakpoints]="{ '960px': '75vw' }" [position]="'top'" [(visible)]="displaySettings" [style]="{width: '75vw'}" [dismissableMask]="true" [draggable]="false">
     <div class="settings-container">
-      <p-menu [model]="settingTabs"></p-menu>
-
+      <p-tabMenu [model]="settingTabs" [activeItem]="activeTab" (onTabChange)="onTabChange($event)"></p-tabMenu>
+      
       <div class="setting-tab" [ngSwitch]="activeTab.label">
         <div *ngSwitchCase="'General'">
           <ng-container *ngTemplateOutlet="generalPanel"></ng-container>
@@ -43,6 +43,11 @@
 </ng-template>
 
 <ng-template #novelPanel>
+  <p-card header="Novel Options" class="panel">
+    <label for="integeronly">Image Sensitivity </label>
+    <br/>
+    <p-dropdown inputId="integeronly" appendTo="body" tooltip="Modify what content to blur" [options]="ImageSensitivityOptions" [(ngModel)]="selectedImageSensitivity" [placeholder]="getImageSensitivityLabel()" (onChange)="onImageSensitivityChange()"></p-dropdown>
+  </p-card>
 </ng-template>
 
 <ng-template #userPanel>

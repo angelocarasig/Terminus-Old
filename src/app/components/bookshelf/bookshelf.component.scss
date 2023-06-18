@@ -26,6 +26,10 @@
   position: absolute;
   top: 65px; // Comes from height of navbar being 65px;
   height: 92.5vh; // Max mobile compatibility (DO NOT CHANGE)
+
+  // Scroll view options
+  width: 100vw;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 

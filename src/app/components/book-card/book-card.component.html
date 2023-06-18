@@ -1,6 +1,6 @@
 <div class="book-card transition-transform scale-in animation-duration-100 hover:scale-in" (click)="onClick()">
   <p-card>
-    <img class="vn-cover" [src]="novel.vn.image.url">
+    <img class="vn-cover" [ngClass]="verifyBlurEffect() ? 'vn-cover-blur' : ''" [src]="novel.vn.image.url">
     <div class="title">
       {{ novel.vn.title }}
     </div>
