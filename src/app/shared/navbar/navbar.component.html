@@ -19,7 +19,7 @@
 </div>
 
 <ng-template #settings>
-  <p-dialog [modal]="true" [header]="getActiveTab()" [breakpoints]="{ '960px': '75vw' }" [position]="'top'" [(visible)]="displaySettings" [style]="{width: '75vw'}" [dismissableMask]="true" [draggable]="false">
+  <p-dialog [modal]="true" [header]="getActiveTab()" [breakpoints]="{ '960px': '75vw' }" [position]="'top'" [(visible)]="displaySettings" [style]="{width: '75vw', height: '75vh'}" [dismissableMask]="true" [draggable]="false">
     <div class="settings-container">
       <p-tabMenu [model]="settingTabs" [activeItem]="activeTab" (onTabChange)="onTabChange($event)"></p-tabMenu>
       
